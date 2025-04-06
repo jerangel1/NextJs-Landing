@@ -16,10 +16,12 @@ const pacifico = Pacifico({
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://next-js-landing-teal.vercel.app';
 
 export const metadata: Metadata = {
-  title: 'Pronosticon - Resultados de Lotería',
-  description: 'Consulta los últimos resultados de lotería en tiempo real. Obtén información actualizada de los sorteos más populares.',
-  keywords: ['lotería', 'resultados', 'sorteos', 'pronosticon', 'números ganadores'],
-  authors: [{ name: 'Pronosticon', url: baseUrl }],
+  title: 'Pronosticon - Resultados de Lotería en Tiempo Real',
+  description: 'Consulta los resultados de lotería más recientes. Obtén información actualizada sobre los sorteos y números ganadores.',
+  generator: 'Next.js',
+  applicationName: 'Pronosticon',
+  keywords: ['lotería', 'resultados', 'sorteos', 'números ganadores', 'pronosticon'],
+  authors: [{ name: 'Pronosticon Team' }],
   creator: 'Pronosticon',
   publisher: 'Pronosticon',
   formatDetection: {
@@ -30,18 +32,15 @@ export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   alternates: {
     canonical: '/',
-    languages: {
-      'es-ES': '/es',
-    },
   },
   openGraph: {
     title: 'Pronosticon - Resultados de Lotería en Tiempo Real',
-    description: 'Consulta los últimos resultados de lotería en tiempo real. Obtén información actualizada de los sorteos más populares.',
+    description: 'Consulta los resultados de lotería más recientes. Obtén información actualizada sobre los sorteos y números ganadores.',
     url: baseUrl,
     siteName: 'Pronosticon',
     images: [
       {
-        url: `/api/og?title=Pronosticon&subtitle=Resultados de Lotería`,
+        url: '/api/og',
         width: 1200,
         height: 630,
         alt: 'Pronosticon - Resultados de Lotería',
@@ -52,9 +51,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Pronosticon - Resultados de Lotería',
-    description: 'Consulta los últimos resultados de lotería en tiempo real. Obtén información actualizada de los sorteos más populares.',
-    images: [`/api/og?title=Pronosticon&subtitle=Resultados de Lotería`],
+    title: 'Pronosticon - Resultados de Lotería en Tiempo Real',
+    description: 'Consulta los resultados de lotería más recientes. Obtén información actualizada sobre los sorteos y números ganadores.',
+    images: ['/api/og'],
     creator: '@pronosticon',
     site: '@pronosticon',
   },

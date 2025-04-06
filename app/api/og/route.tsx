@@ -24,29 +24,31 @@ export async function GET(req: NextRequest) {
             background: 'linear-gradient(to bottom right, #6a4c6d, #9B4DCA)',
             padding: '40px',
             fontFamily: 'sans-serif',
+            position: 'relative',
+            overflow: 'hidden',
           }}
         >
-          {/* Círculos decorativos */}
+          {/* Círculos decorativos de fondo */}
           <div style={{ 
             position: 'absolute', 
             top: '50px', 
             left: '50px', 
-            width: '100px', 
-            height: '100px', 
+            width: '200px', 
+            height: '200px', 
             borderRadius: '50%', 
-            background: 'rgba(255, 215, 0, 0.2)',
-            filter: 'blur(20px)'
+            background: 'rgba(255, 215, 0, 0.15)',
+            filter: 'blur(40px)'
           }} />
           
           <div style={{ 
             position: 'absolute', 
             bottom: '80px', 
             right: '80px', 
-            width: '150px', 
-            height: '150px', 
+            width: '250px', 
+            height: '250px', 
             borderRadius: '50%', 
-            background: 'rgba(255, 215, 0, 0.15)',
-            filter: 'blur(25px)'
+            background: 'rgba(255, 215, 0, 0.1)',
+            filter: 'blur(50px)'
           }} />
           
           {/* Contenido principal */}
@@ -55,13 +57,15 @@ export async function GET(req: NextRequest) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '20px',
+            padding: '30px 40px',
             background: 'rgba(255, 255, 255, 0.1)',
             borderRadius: '20px',
-            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.12)',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.15)',
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255, 255, 255, 0.2)',
-            maxWidth: '80%'
+            maxWidth: '80%',
+            position: 'relative',
+            zIndex: 5,
           }}>
             <h1 style={{ 
               fontSize: 80, 
@@ -84,48 +88,14 @@ export async function GET(req: NextRequest) {
               {subtitle}
             </h2>
           </div>
-          
-          {/* Bolas de lotería decorativas */}
-          <div style={{ 
-            position: 'absolute', 
-            bottom: '40px', 
-            left: '100px', 
-            width: '60px', 
-            height: '60px', 
-            borderRadius: '50%', 
-            background: 'white',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '30px',
-            fontWeight: 'bold',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)'
-          }}>
-            13
-          </div>
-          
-          <div style={{ 
-            position: 'absolute', 
-            top: '120px', 
-            right: '120px', 
-            width: '70px', 
-            height: '70px', 
-            borderRadius: '50%', 
-            background: 'white',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '35px',
-            fontWeight: 'bold',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)'
-          }}>
-            7
-          </div>
         </div>
       ),
       {
         width: 1200,
         height: 630,
+        headers: {
+          'cache-control': 'public, max-age=31536000, immutable',
+        },
       }
     );
   } catch (e: any) {
