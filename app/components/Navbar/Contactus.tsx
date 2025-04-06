@@ -17,7 +17,7 @@ const Contactusform = () => {
     }
 
     const handleClick = () => {
-        alert(`Name: ${inputValues.input1}, Email-address: ${inputValues.input2}, Message: ${inputValues.input3}`);
+        alert(`Nombre: ${inputValues.input1}, Correo electrónico: ${inputValues.input2}, Mensaje: ${inputValues.input3}`);
         setIsOpen(false)
     }
 
@@ -84,54 +84,52 @@ const Contactusform = () => {
                                         <img
                                             className="mx-auto h-12 w-auto"
                                             src="/assets/logo/Logo.svg"
-                                            alt="Your Company"
+                                            alt="Tu Empresa"
                                         />
-                                        <p className="mb-8 lg:mb-16 mt-8 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Contact us now? Want to send us a feedback?</p>
+                                        <p className="mb-8 lg:mb-16 mt-8 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">¿Quieres contactarnos ahora? ¿Deseas enviarnos un comentario?</p>
                                         <form action="#" className="space-y-8" onSubmit={handleSubmit}>
                                             <div>
-                                                <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your Name</label>
+                                                <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tu Nombre</label>
                                                 <input
                                                     id="text"
-
                                                     name="input1"
                                                     value={inputValues.input1}
                                                     onChange={handleChange}
-
                                                     type="text"
                                                     autoComplete="current-password"
                                                     required
                                                     className="relative block w-full appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                                    placeholder="Name..."
+                                                    placeholder="Nombre..."
                                                 />
                                             </div>
                                             <div>
-                                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
+                                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tu correo electrónico</label>
                                                 <input
                                                     id="email"
                                                     name="input2"
                                                     value={inputValues.input2}
                                                     onChange={handleChange}
-
                                                     type="email"
                                                     autoComplete="current-password"
                                                     required
                                                     className="relative block w-full appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                                    placeholder="xyz@email.com"
+                                                    placeholder="correo@ejemplo.com"
                                                 />
                                             </div>
                                             <div className="sm:col-span-2">
-                                                <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Your message</label>
+                                                <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tu mensaje</label>
                                                 <textarea
                                                     id="message"
                                                     name="input3"
                                                     value={inputValues.input3}
                                                     onChange={handleChange}
-                                                    className="relative block w-full appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Leave a comment..."></textarea>
+                                                    className="relative block w-full appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" 
+                                                    placeholder="Deja un comentario..."></textarea>
                                             </div>
                                             <button type="submit"
                                                 onClick={handleClick}
                                                 disabled={isDisabled}
-                                                className="py-3 px-5 text-sm disabled:opacity-50 font-medium w-full text-center text-white rounded-lg bg-purple  hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Send message</button>
+                                                className="py-3 px-5 text-sm disabled:opacity-50 font-medium w-full text-center text-white rounded-lg bg-purple  hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Enviar mensaje</button>
 
                                         </form>
 
@@ -140,7 +138,7 @@ const Contactusform = () => {
                                     {/* <div className='flex justify-end'>
                                         <button type="button"
                                             onClick={closeModal}
-                                            className="py-3 px-5 mt-2 text-sm font-medium w-50 text-center text-white rounded-lg bg-red hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Close</button>
+                                            className="py-3 px-5 mt-2 text-sm font-medium w-50 text-center text-white rounded-lg bg-red hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Cerrar</button>
                                     </div> */}
 
                                 </Dialog.Panel>
