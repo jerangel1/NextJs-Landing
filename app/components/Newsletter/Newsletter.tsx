@@ -4,7 +4,7 @@ const Newsletter = () => {
             <div className="mx-auto max-w-2xl py-16 md:py-24 px-4 sm:px-6 md:max-w-7xl lg:px-24 bg-newsletter rounded-lg relative overflow-hidden">
                 {/* Dark overlay for better text visibility */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent"></div>
-                <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 xl:gap-x-8 relative z-10">
+                <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 xl:gap-x-8 relative ">
                     {/* COLUMN-1 */}
                     <div>
                         <h3 className="text-5xl font-bold mb-3 text-white drop-shadow-lg font-medium">

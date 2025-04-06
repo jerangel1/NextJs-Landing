@@ -25,7 +25,8 @@ module.exports = {
       'emailbg': '#6a4c6d',
       'offwhite': ' #FDFDFD',
       'offblack' :'#333333',
-      'red' : '#FF605C'
+      'red' : '#FF605C',
+      'gold' : '#FFD700'
     },
     fontFamily: {
       'inter': ['Inter', "sans-serif"]

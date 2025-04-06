@@ -47,7 +47,7 @@ export default function HeroSection({
             variants={fadeUpVariants}
             initial="hidden"
             animate="visible"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-green shadow-lg border border-green/80 mb-8 md:mb-12"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-purple shadow-lg border border-gold mb-8 md:mb-12"
           >
             <span className="text-base font-bold text-white tracking-wide">{badge}</span>
           </motion.div>
