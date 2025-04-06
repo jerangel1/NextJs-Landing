@@ -1,13 +1,19 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Pacifico } from "next/font/google"
+import { Pacifico, Montserrat } from "next/font/google"
 import { cn } from "@/app/lib/utils"
 
 const pacifico = Pacifico({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-pacifico",
+})
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["600"],
+  variable: "--font-montserrat",
 })
 
 export default function HeroSection({
@@ -33,8 +39,8 @@ export default function HeroSection({
   }
 
   return (
-    <div className="relative min-h-[60vh] w-full flex items-center justify-center overflow-hidden bg-bgpink z-10">
-      <div className="relative z-10 container mx-auto px-4 md:px-6">
+    <div className="relative min-h-[60vh] w-full flex items-center justify-center overflow-hidden bg-bgpink">
+      <div className="relative container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div
             custom={0}
@@ -48,30 +54,32 @@ export default function HeroSection({
 
           <motion.div custom={1} variants={fadeUpVariants} initial="hidden" animate="visible">
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold mb-6 md:mb-8 tracking-tight">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-bgpurple to-purple drop-shadow-md">{title1}</span>
+              <span className={cn(
+                "bg-clip-text text-transparent bg-gradient-to-r from-bgpurple to-purple drop-shadow-md ",
+                montserrat.className,
+              )}>{title1}</span>
               <br />
               <motion.span
-                initial={{ textShadow: "0 0 0px rgba(249, 205, 146, 0)" }}
+                initial={{ backgroundPosition: "200% center" }}
                 animate={{ 
-                  textShadow: [
-                    "0 0 4px rgba(249, 205, 146, 0.3)",
-                    "0 0 8px rgba(249, 205, 146, 0.5)",
-                    "0 0 4px rgba(249, 205, 146, 0.3)"
-                  ]
+                  backgroundPosition: ["-200% center", "200% center"]
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 8,
                   repeat: Infinity,
-                  ease: "easeInOut"
+                  ease: "linear"
                 }}
                 className={cn(
-                  "bg-clip-text text-transparent bg-gradient-to-r from-orange via-purple to-orange",
-                  pacifico.className,
+                  "inline-block bg-[length:200%_auto] bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#9B4DCA] to-[#FFD700] font-bold",
+                  montserrat.className,
                   "relative"
                 )}
+                style={{
+                  WebkitTextStroke: "1px rgba(255,215,0,0.1)"
+                }}
               >
                 {title2}
-                <span className="absolute -inset-1 bg-gradient-to-r from-orange/10 via-purple/5 to-orange/10 blur-xl -z-10"></span>
+                <span className="absolute -inset-1 bg-gradient-to-r from-[#FFD700]/10 via-[#9B4DCA]/5 to-[#FFD700]/10 blur-xl -z-10"></span>
               </motion.span>
             </h1>
           </motion.div>
@@ -79,9 +87,9 @@ export default function HeroSection({
       </div>
       
       {/* Decorative elements */}
-      <div className="absolute top-20 left-10 w-16 h-16 rounded-full bg-orange/20 blur-md"></div>
-      <div className="absolute bottom-20 right-10 w-20 h-20 rounded-full bg-orange/20 blur-md"></div>
-      <div className="absolute top-1/2 right-1/4 w-12 h-12 rounded-full bg-purple/20 blur-md"></div>
+      <div className="absolute top-20 left-10 w-16 h-16 rounded-full bg-[#FFD700]/20 blur-md"></div>
+      <div className="absolute bottom-20 right-10 w-20 h-20 rounded-full bg-[#FFD700]/20 blur-md"></div>
+      <div className="absolute top-1/2 right-1/4 w-12 h-12 rounded-full bg-[#9B4DCA]/20 blur-md"></div>
     </div>
   )
 }

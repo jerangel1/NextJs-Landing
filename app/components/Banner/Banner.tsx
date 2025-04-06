@@ -25,7 +25,7 @@ const Banner = () => {
                     />
 
                     {/* DROPDOWN BUTTONS */}
-                    <div className="mx-auto max-w-4xl mt-2 pt-6 pb-8 px-6 lg:max-w-4xl lg:px-8 bg-white rounded-lg boxshadow relative z-30">
+                    <div className="mx-auto max-w-4xl mt-2 pt-6 pb-8 px-6 lg:max-w-4xl lg:px-8 bg-white rounded-lg boxshadow relative ">
                         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 items-center">
                             <div className="w-full sm:w-1/2">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
