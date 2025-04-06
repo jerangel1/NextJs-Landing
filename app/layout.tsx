@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     siteName: 'Pronosticon',
     images: [
       {
-        url: '/assets/logo/Pronosticon.png',
+        url: `/api/og?title=Pronosticon&subtitle=Resultados de Lotería`,
         width: 1200,
         height: 630,
         alt: 'Pronosticon - Resultados de Lotería',
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Pronosticon - Resultados de Lotería',
     description: 'Consulta los últimos resultados de lotería en tiempo real. Obtén información actualizada de los sorteos más populares.',
-    images: ['/assets/logo/Pronosticon.png'],
+    images: [`/api/og?title=Pronosticon&subtitle=Resultados de Lotería`],
     creator: '@pronosticon',
     site: '@pronosticon',
   },
