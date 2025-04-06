@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Pacifico, Montserrat } from "next/font/google"
 import { cn } from "@/app/lib/utils"
+import { memo, useMemo } from "react"
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -16,7 +17,8 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 })
 
-export default function HeroSection({
+// Memoize the component to prevent unnecessary re-renders
+const HeroSection = memo(({
   badge = "Pronosticon",
   title1 = "Descubre tus",
   title2 = "Resultados de Lotería",
@@ -24,8 +26,9 @@ export default function HeroSection({
   badge?: string
   title1?: string
   title2?: string
-}) {
-  const fadeUpVariants = {
+}) => {
+  // Memoize animation variants to prevent recreation on each render
+  const fadeUpVariants = useMemo(() => ({
     hidden: { opacity: 0, y: 30 },
     visible: (i: number) => ({
       opacity: 1,
@@ -36,7 +39,29 @@ export default function HeroSection({
         ease: [0.25, 0.4, 0.25, 1],
       },
     }),
-  }
+  }), []);
+
+  // Memoize animation properties
+  const titleAnimation = useMemo(() => ({
+    initial: { backgroundPosition: "200% center" },
+    animate: { 
+      backgroundPosition: ["-200% center", "200% center"]
+    },
+    transition: {
+      duration: 8,
+      repeat: Infinity,
+      ease: "linear"
+    }
+  }), []);
+
+  // Memoize class names
+  const title1ClassName = useMemo(() => 
+    cn("bg-clip-text text-transparent bg-gradient-to-r from-bgpurple to-purple drop-shadow-md", montserrat.className), 
+  []);
+
+  const title2ClassName = useMemo(() => 
+    cn("inline-block bg-[length:200%_auto] bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#9B4DCA] to-[#FFD700] font-bold", montserrat.className, "relative"), 
+  []);
 
   return (
     <div className="relative min-h-[60vh] w-full flex items-center justify-center overflow-hidden bg-bgpink">
@@ -54,26 +79,11 @@ export default function HeroSection({
 
           <motion.div custom={1} variants={fadeUpVariants} initial="hidden" animate="visible">
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold mb-6 md:mb-8 tracking-tight">
-              <span className={cn(
-                "bg-clip-text text-transparent bg-gradient-to-r from-bgpurple to-purple drop-shadow-md ",
-                montserrat.className,
-              )}>{title1}</span>
+              <span className={title1ClassName}>{title1}</span>
               <br />
               <motion.span
-                initial={{ backgroundPosition: "200% center" }}
-                animate={{ 
-                  backgroundPosition: ["-200% center", "200% center"]
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-                className={cn(
-                  "inline-block bg-[length:200%_auto] bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#9B4DCA] to-[#FFD700] font-bold",
-                  montserrat.className,
-                  "relative"
-                )}
+                {...titleAnimation}
+                className={title2ClassName}
                 style={{
                   WebkitTextStroke: "1px rgba(255,215,0,0.1)"
                 }}
@@ -86,10 +96,13 @@ export default function HeroSection({
         </div>
       </div>
       
-      {/* Decorative elements */}
-      <div className="absolute top-20 left-10 w-16 h-16 rounded-full bg-[#FFD700]/20 blur-md"></div>
-      <div className="absolute bottom-20 right-10 w-20 h-20 rounded-full bg-[#FFD700]/20 blur-md"></div>
-      <div className="absolute top-1/2 right-1/4 w-12 h-12 rounded-full bg-[#9B4DCA]/20 blur-md"></div>
+      {/* Decorative elements - use will-change for better GPU acceleration */}
+      <div className="absolute top-20 left-10 w-16 h-16 rounded-full bg-[#FFD700]/20 blur-md" style={{ willChange: 'transform' }}></div>
+      <div className="absolute bottom-20 right-10 w-20 h-20 rounded-full bg-[#FFD700]/20 blur-md" style={{ willChange: 'transform' }}></div>
+      <div className="absolute top-1/2 right-1/4 w-12 h-12 rounded-full bg-[#9B4DCA]/20 blur-md" style={{ willChange: 'transform' }}></div>
     </div>
   )
-}
+});
+
+HeroSection.displayName = 'HeroSection';
+export default HeroSection;

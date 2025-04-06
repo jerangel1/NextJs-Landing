@@ -1,17 +1,17 @@
 "use client"
-import Dropdownone from './Dropdownone';
-import Dropdowntwo from './Dropdowntwo';
-import LotteryBalls from './LotteryBalls';
-import HeroSection from './HeroSection';
-import { useState } from 'react';
+import { useState, useCallback, memo } from 'react';
+import HeroSection from "./HeroSection"
+import LotteryBalls from "./LotteryBalls"
+import Dropdownone from "./Dropdownone"
+import Dropdowntwo from "./Dropdowntwo"
 import { LotteryProductType, LotteryProducts } from './Dropdownone';
 
-const Banner = () => {
-    const [selectedProduct, setSelectedProduct] = useState<LotteryProductType>(LotteryProducts[0])
-    
-    const handleProductChange = (product: LotteryProductType) => {
+// Memoize the Banner component to prevent unnecessary re-renders
+const Banner = memo(() => {
+    const [selectedProduct, setSelectedProduct] = useState<LotteryProductType>(() => LotteryProducts[0]);
+    const handleProductChange = useCallback((product: LotteryProductType) => {
         setSelectedProduct(product);
-    }
+    }, []);
     
     return (
         <main className='overflow-hidden min-h-screen pt-20'>
@@ -50,6 +50,7 @@ const Banner = () => {
             </div>
         </main>
     )
-}
+});
 
+Banner.displayName = 'Banner';
 export default Banner;

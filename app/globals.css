@@ -52,7 +52,7 @@ html:not([data-scroll="0"]) .navbar {
 }
 
 .bg-newsletter {
-  background-image: url('/assets/newsletter/hands.svg');
+  background-image: url('https://betsol-web.s3.us-east-2.amazonaws.com/hands.svg');
   background-position: right;
   background-repeat: no-repeat;
   background-size: cover;

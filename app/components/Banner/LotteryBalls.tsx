@@ -1,9 +1,14 @@
 "use client"
-import { useEffect, useRef, memo } from 'react';
+import { useEffect, useRef, memo, useCallback, useState } from 'react';
+
+// Cache the preloaded images
+const preloadedImages: Record<string, boolean> = {};
 
 const LotteryBalls = memo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
   const animationsRef = useRef<Animation[]>([]);
+  const animationFrameRef = useRef<number | null>(null);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   
   const balls = [
     'ball0.avif',
@@ -17,6 +22,7 @@ const LotteryBalls = memo(() => {
     'bola11.avif',
     'bola13.avif'
   ];
+
   // Custom positions for each ball to create a scattered effect around text
   const positions = [
     { x: -325, y: 720, size: 170, delay: 0.5 },   // ball0 - top left
@@ -31,19 +37,74 @@ const LotteryBalls = memo(() => {
     { x: 535, y: -500, size: 55, delay: 1.3 }       // bola13 - inner right
   ];
 
+  // Preload images
   useEffect(() => {
-    // Cleanup previous animations
-    return () => {
-      animationsRef.current.forEach(anim => anim.cancel());
-    };
-  }, []);
+    let loadedCount = 0;
+    const totalImages = balls.length;
+    
+    // Skip if already preloaded
+    if (Object.keys(preloadedImages).length === totalImages) {
+      setImagesLoaded(true);
+      return;
+    }
+    
+    balls.forEach(ball => {
+      if (preloadedImages[ball]) {
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+        }
+        return;
+      }
+      
+      const img = new window.Image();
+      img.src = `https://betsol-web.s3.us-east-2.amazonaws.com/${ball}`;
+      
+      // Set cache control headers via fetch for better caching
+      fetch(`https://betsol-web.s3.us-east-2.amazonaws.com/${ball}`, {
+        cache: 'force-cache',
+        mode: 'cors',
+        credentials: 'same-origin'
+      }).catch(() => {
+        // Silently fail - we still have the Image() fallback
+      });
+      
+      img.onload = () => {
+        preloadedImages[ball] = true;
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+        }
+      };
+      img.onerror = () => {
+        // Still count errors to avoid blocking animation
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+        }
+      };
+    });
+  }, [balls]);
 
-  useEffect(() => {
-    // Add floating animation
+  // Memoized animation setup function
+  const setupAnimations = useCallback(() => {
+    if (!imagesLoaded) return;
+    
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+
+    // Clear previous animations
+    animationsRef.current.forEach(anim => anim.cancel());
+    animationsRef.current = [];
+
     const ballElements = containerRef.current?.querySelectorAll('img');
-    if (ballElements) {
+    if (!ballElements) return;
+
+    // Use requestAnimationFrame to stagger animations and avoid layout thrashing
+    animationFrameRef.current = requestAnimationFrame(() => {
       ballElements.forEach((ball, index) => {
-        const yMovement = 10 + Math.random() * 8; // Random movement between 10-18px
+        const yMovement = 10 + Math.random() * 8;
         const animation = ball.animate(
           [
             { transform: `translate(${positions[index].x}%, ${positions[index].y}%) translateY(-${yMovement}px)` },
@@ -51,7 +112,7 @@ const LotteryBalls = memo(() => {
             { transform: `translate(${positions[index].x}%, ${positions[index].y}%) translateY(-${yMovement}px)` }
           ],
           {
-            duration: 5000 + Math.random() * 3000, // Random duration between 5-8s
+            duration: 5000 + Math.random() * 3000,
             iterations: Infinity,
             easing: 'ease-in-out',
             delay: positions[index].delay * 1000
@@ -59,8 +120,26 @@ const LotteryBalls = memo(() => {
         );
         animationsRef.current.push(animation);
       });
-    }
-  }, []);
+    });
+  }, [imagesLoaded]);
+
+  useEffect(() => {
+    // Only start animations when images are loaded
+    if (!imagesLoaded) return;
+    
+    // Wait for the next frame to ensure DOM is ready
+    animationFrameRef.current = requestAnimationFrame(() => {
+      setupAnimations();
+    });
+
+    // Cleanup function
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      animationsRef.current.forEach(anim => anim.cancel());
+    };
+  }, [setupAnimations, imagesLoaded]);
 
   return (
     <div ref={containerRef} className="absolute inset-0 pointer-events-none overflow-hidden hidden md:block">
@@ -79,10 +158,12 @@ const LotteryBalls = memo(() => {
             transition: 'transform 0.3s ease-in-out',
             zIndex: '1',
             willChange: 'transform',
-            backfaceVisibility: 'hidden'
+            backfaceVisibility: 'hidden',
+            opacity: imagesLoaded ? 1 : 0, // Only show when loaded
           }}
-          loading="eager"
           decoding="async"
+          fetchPriority="high" // Prioritize these images
+          crossOrigin="anonymous" // Enable CORS for caching
         />
       ))}
     </div>
