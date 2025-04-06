@@ -27,7 +27,7 @@ const LotteryBalls = memo(() => {
     { x: -155, y: 190, size: 65, delay: 2.0 },     // ball13 - bottom
     { x: -375, y: -230, size: 150, delay: 1.0 },  // ball29 - bottom left
     { x: -100, y: -350, size: 100, delay: 1.7 },    // bola7 - left
-    { x: -35, y: 185, size: 150, delay: 0.6 },     // baola11 - inner left
+    { x: 335, y: 185, size: 150, delay: 0.6 },     // bola11 - inner left
     { x: 535, y: -500, size: 55, delay: 1.3 }       // bola13 - inner right
   ];
 
